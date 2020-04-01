@@ -11,6 +11,11 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from shlex import split
+import shlex
+
+
+list_class = ["BaseModel", "User", "Amenity",
+              "City", "Place", "Review", "State"]
 
 
 class HBNBCommand(cmd.Cmd):
@@ -32,23 +37,32 @@ class HBNBCommand(cmd.Cmd):
         """Quit command to exit the program at end of file"""
         return True
 
-    def do_create(self, line):
+    def do_create(self, arg):
         """Creates a new instance of BaseModel, saves it
         Exceptions:
             SyntaxError: when there is no args given
             NameError: when there is no object taht has the name
         """
-        try:
-            if not line:
-                raise SyntaxError()
-            my_list = line.split(" ")
-            obj = eval("{}()".format(my_list[0]))
-            obj.save()
-            print("{}".format(obj.id))
-        except SyntaxError:
+        if len(arg) == 0:
             print("** class name missing **")
-        except NameError:
+            return
+        param = shlex.split(arg)
+        if param[0] not in list_class:
             print("** class doesn't exist **")
+            return
+
+        obj = eval("{}()".format(param[0]))
+        if param[1]:
+            dict_class = {}
+            for atr in param[1:]:
+                atrs = atr.split('=')
+                atrs[1] = atrs[1].replace("_", " ")
+                dict_class[atrs[0]] = atrs[1]
+            for key, value in dict_class.items():
+                if hasattr(obj, key):
+                    setattr(obj, key, value)
+        obj.save()
+        print("{}".format(obj.id))
 
     def do_show(self, line):
         """Prints the string representation of an instance
