@@ -60,7 +60,14 @@ class HBNBCommand(cmd.Cmd):
                 dict_class[atrs[0]] = atrs[1]
             for key, value in dict_class.items():
                 if hasattr(obj, key):
-                    setattr(obj, key, value)
+                    try:
+                        final_val = int(value)
+                    except:
+                        try:
+                            final_val = float(value)
+                        except:
+                            final_val = value
+                    setattr(obj, key, final_val)
         obj.save()
         print("{}".format(obj.id))
 
