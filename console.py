@@ -52,7 +52,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         obj = eval("{}()".format(param[0]))
-        if param[1]:
+        if len(param) > 1:
             dict_class = {}
             for atr in param[1:]:
                 atrs = atr.split('=')
