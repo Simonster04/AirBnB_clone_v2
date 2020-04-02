@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-This is the file storage class for AirBnB
-"""
+"""This is the file storage class for AirBnB"""
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -35,7 +33,7 @@ class FileStorage:
             return bbsito
         else:
             return self.__objects
-
+        
     def new(self, obj):
         """sets __object to given obj
         Args:
@@ -66,13 +64,9 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """
-        delete obj from __objects
+        """delete obj from __objects
         """
         if obj is not None:
-            key = str(obj.__class__.__name__) + '.' + str(obj.id)
+            key = obj.__class__.__name__ + '.' + obj.id
             if key in self.__objects:
                 del self.__objects[key]
-                self.save()
-        else:
-            return
