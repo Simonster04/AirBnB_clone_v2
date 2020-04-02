@@ -46,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) == 0:
             print("** class name missing **")
             return
-        param = shlex.split(arg)
+        param = arg.split()
         if param[0] not in list_class:
             print("** class doesn't exist **")
             return
@@ -60,13 +60,16 @@ class HBNBCommand(cmd.Cmd):
                 dict_class[atrs[0]] = atrs[1]
             for key, value in dict_class.items():
                 if hasattr(obj, key):
-                    try:
-                        final_val = int(value)
-                    except:
+                    if value[0] == value[-1] == '"':
+                        final_val = shlex.split(value)[0]
+                    else:
                         try:
-                            final_val = float(value)
+                            final_val = int(value)
                         except:
-                            final_val = value
+                            try:
+                                final_val = float(value)
+                            except:
+                                pass
                     setattr(obj, key, final_val)
         obj.save()
         print("{}".format(obj.id))
