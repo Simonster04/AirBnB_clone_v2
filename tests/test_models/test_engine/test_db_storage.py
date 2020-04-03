@@ -17,10 +17,11 @@ import MySQLdb
 
 
 @unittest.skipIf(
-    os.getenv('HBNB_TYPE_STORAGE') != 'db',
-    "This test only work in DBStorage")
+       os.getenv('HBNB_TYPE_STORAGE') != 'db',
+       "This test only work in DBStorage")
 class TestDBStorage(unittest.TestCase):
-    '''this will test the DBStorage'''
+    """this will test the DBStorage"""
+
     @classmethod
     def setUpClass(cls):
         """Tests"""
@@ -93,7 +94,8 @@ class TestDBStorage(unittest.TestCase):
         with open(path, "r") as r:
             for line in r:
                 self.assertEqual(line, "{}")
-            self.assertIs(self.storage.reload(), None)
+        self.assertIs(self.storage.reload(), None)
+
 
 if __name__ == "__main__":
     unittest.main()

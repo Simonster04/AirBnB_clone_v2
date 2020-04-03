@@ -9,7 +9,6 @@ import pep8
 
 class TestAmenity(unittest.TestCase):
     """this will test the Amenity class"""
-
     @classmethod
     def setUpClass(cls):
         """set up for test"""
