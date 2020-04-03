@@ -13,7 +13,6 @@ from models.review import Review
 from shlex import split
 import shlex
 
-
 list_class = ["BaseModel", "User", "Amenity",
               "City", "Place", "Review", "State"]
 
@@ -142,7 +141,6 @@ class HBNBCommand(cmd.Cmd):
         Exceptions:
             NameError: when there is no object taht has the name
         """
-        storage.reload()
         objects = storage.all()
         my_list = []
         if not line:
