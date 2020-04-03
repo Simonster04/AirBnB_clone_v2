@@ -142,6 +142,7 @@ class HBNBCommand(cmd.Cmd):
         Exceptions:
             NameError: when there is no object taht has the name
         """
+        storage.reload()
         objects = storage.all()
         my_list = []
         if not line:
