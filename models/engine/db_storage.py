@@ -10,6 +10,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
 import sqlalchemy
 import os
 
@@ -23,9 +24,14 @@ all_classes = {"BaseModel": BaseModel, "User": User, "State": State, "City": Cit
 all_classes = {"BaseModel": BaseModel, "User": User, "State": State,
                "City": City, "Amenity": Amenity, "Place": Place,
                "Review": Review}
+<<<<<<< HEAD
                 
     
 >>>>>>> beffef56ea7fc479f1026670102ceb086638b627
+=======
+
+
+>>>>>>> da30bf0fde8f3e05764d0d51af1c12fc09316755
 class DBStorage:
     """This class storages in the database to instances
     Attributes:
@@ -36,14 +42,17 @@ class DBStorage:
     __session = None
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> beffef56ea7fc479f1026670102ceb086638b627
+=======
+>>>>>>> da30bf0fde8f3e05764d0d51af1c12fc09316755
     def __init__(self):
         """ Instantiation of DBStorage class """
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
-            os.getenv(HBNB_MYSQL_USER), os.getenv(HBNB_MYSQL_PWD),
-            os.getenv(HBNB_MYSQL_HOST), os.getenv(HBNB_MYSQL_DB)),
+            os.getenv("HBNB_MYSQL_USER"), os.getenv("HBNB_MYSQL_PWD"),
+            os.getenv("HBNB_MYSQL_HOST"), os.getenv("HBNB_MYSQL_DB")),
             pool_pre_ping=True)
 <<<<<<< HEAD
         if os.getenv(HBNB_ENV) == "test":
@@ -64,9 +73,9 @@ class DBStorage:
             return bbsito
 =======
 
-        if os.getenv(HBNB_ENV) == "test":
+        if os.getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(bind=self.__engine)
-        
+
     def all(self, cls=None):
         """
         returns a dictionary with objects in database
@@ -88,17 +97,18 @@ class DBStorage:
     def save(self):
         """ commit all changes of the current database session """
         self.__session.commit()
-    
+
     def delete(self, obj=None):
         """ delete from the current database session obj if not None """
         if obj is not None:
             self.__session.delete(obj)
-    
+
     def reload(self):
         """ create all tables in the database
             create the current database session """
-        Base.metadata.create_all(self.engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Base.metadata.create_all(self.__engine)
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session
 >>>>>>> beffef56ea7fc479f1026670102ceb086638b627
