@@ -30,25 +30,28 @@ class BaseModel:
         """
         if kwargs:
             if "created_at" in kwargs:
-                kwargs["created_at"] = datetime.strptime(kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                kwargs["created_at"] = datetime.strptime(
+                    kwargs["created_at"],
+                    "%Y-%m-%dT%H:%M:%S.%f")
             else:
                 self.created_at = datetime.utcnow()
 
             if "updated_at" in kwargs:
-                kwargs["updated_at"] = datetime.strptime(kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                kwargs["updated_at"] = datetime.strptime(
+                    kwargs["updated_at"],
+                    "%Y-%m-%dT%H:%M:%S.%f")
             else:
                 self.updated_at = datetime.utcnow()
 
             if "id" not in kwargs:
                 self.id = str(uuid.uuid4())
 
-            for key, value in kwargs.items():               
+            for key, value in kwargs.items():
                 if key != "__class__":
                     setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = self.updated_at = datetime.now()
-
 
     def __str__(self):
         """returns a string
@@ -84,7 +87,7 @@ class BaseModel:
         return my_dict
 
     def delete(self):
-        """ to delete the current instance from the storage 
+        """ to delete the current instance from the storage
         (models.storage) by calling the method delete
         """
         models.storage.delete(self)
