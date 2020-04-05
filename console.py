@@ -11,10 +11,13 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from shlex import split
+<<<<<<< HEAD
 import shlex
 
 list_class = ["BaseModel", "User", "Amenity",
               "City", "Place", "Review", "State"]
+=======
+>>>>>>> 943b252f5d180925631cb822e7b5268c5c0f6f84
 
 
 class HBNBCommand(cmd.Cmd):
@@ -187,11 +190,16 @@ class HBNBCommand(cmd.Cmd):
             if len(my_list) < 4:
                 raise ValueError()
             v = objects[key]
+<<<<<<< HEAD
             try:
                 v.__dict__[my_list[2]] = eval(my_list[3])
             except Exception:
                 v.__dict__[my_list[2]] = my_list[3]
                 v.save()
+=======
+            v.__dict__[my_list[2]] = my_list[3]
+            v.save()
+>>>>>>> 943b252f5d180925631cb822e7b5268c5c0f6f84
         except SyntaxError:
             print("** class name missing **")
         except NameError:
