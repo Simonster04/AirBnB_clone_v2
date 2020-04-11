@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-#
+# Sets up your web servers for the deployment of web_static
 sudo apt-get update -y
 sudo apt-get install -y nginx
 sudo mkdir -p /data/web_static/releases/test/
-sudo echo "HOLA BEBÉ" > /data/web_static/releases/test/index.html
+echo "HOLA BEBE" | sudo tee /data/web_static/releases/test/index.html
 rm /data/web_static/current
 ln -s /data/web_static/current /data/web_static/releases/test/
 chown -R ubuntu:ubuntu /data/
