@@ -15,7 +15,8 @@ def do_pack():
     try:
         if isdir('versions') is False:
             local("mkdir versions")
-        tgz_file = "versions/web_static_{}.tgz".format(time.strftime("%Y%m%d%H%M%S"))
+        tgz_file = "versions/web_static_{}.tgz".format(
+                                                time.strftime("%Y%m%d%H%M%S"))
         local("tar -cvzf {} web_static".format(tgz_file))
         return tgz_file
     except:
