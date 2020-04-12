@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
- Contains deploy() function
+ Contains do_pack(), do_deploy() and deploy() functions
 """
 from fabric.api import *
 from fabric.operations import *
