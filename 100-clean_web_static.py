@@ -16,9 +16,9 @@ def do_clean(number=0):
         number = 1
     with lcd('./versions/'):
         len = int(sudo("ls | wc -l"))
-        local("sudo ls -tr1 | head -n +{} | xargs -d '\n' rm -rf".
+        local("sudo ls -tr1 | head -n +{} | xargs -d '\n' rm -rf --".
               format(len - int(number)))
     with cd('/data/web_static/releases/'):
         len = int(sudo("ls | wc -l"))
-        run("sudo ls -tr1 | head -n +{} | xargs -d '\n' rm -rf".
+        run("sudo ls -tr1 | head -n +{} | xargs -d '\n' rm -rf --".
             format(len - int(number)))
