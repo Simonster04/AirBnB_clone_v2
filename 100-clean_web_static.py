@@ -14,7 +14,7 @@ def do_clean(number=0):
     """ Deletes out-of-date archives """
     if number == 0:
         number = 1
-    with lcd('./versions/'):
+    with cd.local('./versions/'):
         len = int(sudo("ls | wc -l"))
         local("sudo ls -tr1 | head -n +{} | xargs -d '\n' rm -rf --".
               format(len - int(number)))
