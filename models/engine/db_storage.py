@@ -13,8 +13,9 @@ from models.place import Place
 from models.review import Review
 
 classes = {'City': City, 'State': State, 'User': User,
-             'Amenitiy': Amenity, 'Place': Place,
-             'Review': Review}
+           'Amenitiy': Amenity, 'Place': Place,
+           'Review': Review}
+
 
 class DBStorage:
     """This class storages in the database to instances
