@@ -12,21 +12,21 @@ class State(BaseModel, Base):
     Attributes:
         name: input name
     """
-    __tablename__ = "states"
     if os.getenv("HBNB_TYPE_STORAGE") == "db":
+        __tablename__ = "states"
         name = Column(String(128), nullable=False)
-        cities = relationship('City', cascade='all, delete', backref='state')
+        cities = relationship('City', backref='state')
     else:
         name = ""
 
-    if os.getenv("HBNB_TYPE_STORAGE") == "db":       
+    if os.getenv("HBNB_TYPE_STORAGE") != "db":
         @property
         def cities(self):
             """ cities getter
             """
             objects = models.storage.all(City)
             city_list = []
-            for key, val in objects.items():
-                if val.state_id == self.id:
-                    city_list.append(val)
+            for city in objects.values():
+                if city.state_id == self.id:
+                    city_list.append(city)
             return city_list
