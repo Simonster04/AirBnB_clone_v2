@@ -2,7 +2,6 @@
 """This is the city class"""
 import os
 from models.base_model import BaseModel, Base
-from models.place import Place
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -13,11 +12,11 @@ class City(BaseModel, Base):
         state_id: The state id
         name: input name
     """
+    __tablename__ = "cities"
     if os.getenv("HBNB_TYPE_STORAGE") == "db":
-        __tablename__ = "cities"
         name = Column(String(128), nullable=False)
         state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
-        places = relationship('Place', cascade='all, delete', backref='cities')
+        places = relationship('Place', passive_deletes=True, backref='cities')
     else:
         state_id = ""
         name = ""

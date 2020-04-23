@@ -25,12 +25,22 @@ class DBStorage:
 
     def __init__(self):
         """ Instantiation of DBStorage class """
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
-            os.getenv("HBNB_MYSQL_USER"), os.getenv("HBNB_MYSQL_PWD"),
-            os.getenv("HBNB_MYSQL_HOST"), os.getenv("HBNB_MYSQL_DB")),
-            pool_pre_ping=True)
+        try:
+            self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
+                os.getenv("HBNB_MYSQL_USER"), os.getenv("HBNB_MYSQL_PWD"),
+                os.getenv("HBNB_MYSQL_HOST"), os.getenv("HBNB_MYSQL_DB")),
+                pool_pre_ping=True)
+        except Exception:
+            pass        
+
+        self.__session = sessionmaker(self.__engine)()
+
         if os.getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
+    
+    def __del__(self):
+        """ close session """
+        self.__session.close()
 
     def all(self, cls=None):
         """ all """
@@ -49,7 +59,10 @@ class DBStorage:
 
     def save(self):
         """ commit all changes of the current database session """
-        self.__session.commit()
+        try:
+            self.__session.commit()
+        except Exception:
+            self.__session.rollback()
 
     def delete(self, obj=None):
         """ delete from the current database session obj if not None """

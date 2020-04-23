@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """This is the state class"""
+import models
 from models.base_model import BaseModel, Base
 from models.city import City
 import os
@@ -12,14 +13,13 @@ class State(BaseModel, Base):
     Attributes:
         name: input name
     """
+    __tablename__ = "states"
     if os.getenv("HBNB_TYPE_STORAGE") == "db":
-        __tablename__ = "states"
         name = Column(String(128), nullable=False)
-        cities = relationship('City', backref='state')
+        cities = relationship('City', passive_deletes=True, backref='state')
     else:
         name = ""
 
-    if os.getenv("HBNB_TYPE_STORAGE") != "db":
         @property
         def cities(self):
             """ cities getter
