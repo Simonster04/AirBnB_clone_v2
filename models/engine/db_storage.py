@@ -31,13 +31,13 @@ class DBStorage:
                 os.getenv("HBNB_MYSQL_HOST"), os.getenv("HBNB_MYSQL_DB")),
                 pool_pre_ping=True)
         except Exception:
-            pass        
+            pass
 
         self.__session = sessionmaker(self.__engine)()
 
         if os.getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
-    
+
     def __del__(self):
         """ close session """
         self.__session.close()

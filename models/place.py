@@ -62,7 +62,6 @@ class Place(BaseModel, Base):
         longitude = 0.0
         amenity_ids = []
 
-
         @property
         def reviews(self):
             """ reviews getter
