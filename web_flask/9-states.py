@@ -9,11 +9,10 @@ from models import storage
 app = Flask(__name__)
 
 
-
 @app.route('/states', strict_slashes=False)
 @app.route('/states/<id>', strict_slashes=False)
 def states(id=None):
-    """ Display a HTML page with all the states and its cities sorted by name"""
+    """ Display a HTML page w/ all the states and its cities sorted by name"""
     states = storage.all('State')
     if id is not None:
         id = 'State.' + id
