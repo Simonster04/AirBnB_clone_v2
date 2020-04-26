@@ -1,3 +1,9 @@
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -5,7 +11,8 @@ body {
     font-size: 14px;
     font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-body .container {
+.container {
     max-width: 1000px;
-    margin: 30px auto;
+    margin: 30px auto 30px auto;
+    position: relative;
 }
